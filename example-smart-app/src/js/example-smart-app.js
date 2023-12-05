@@ -27,14 +27,24 @@ var btemp_loinc_cd = "8310-5";
 						, 'http://loinc.org|2089-1'				// Cholesterol in LDL
 						, 'http://loinc.org|'+bp_loinc_cd		// BP Systolic and Diastolic, changed from 55284-4
 						, 'http://loinc.org|'+btemp_loinc_cd	// 001 Body Temperature
-						]
-                      }
+						]}
+						, "date": 'gt2020-01-01'				// 002
+						, "category": 'vital-signs'				// 002
                     }
                   });
+
+		// 002
+		var alg = smart.patient.api.fetchAll({
+			type: 'AllergyIntolerance',
+			query: {
+				clinical-status: {'active'}
+			}
+		});
 
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
+			console.log(alg)
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
