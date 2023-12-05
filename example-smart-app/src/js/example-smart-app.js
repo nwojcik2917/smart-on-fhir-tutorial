@@ -131,9 +131,11 @@ var btemp_loinc_cd = "8310-5";
   
   // 002
   function getAllergies(a) {
-	for(let i = 0; i < a.entry.length; i++) {
-		p.allergies += a.entry[i].resource.code.text + "<br>";
+	 var allergies = "";
+	for(let i = 0; i < a.length; i++) {
+		allergies += a[i].code.text + "<br>";
 	}
+	return allergies;
   }
 
   function getQuantityValueAndUnit(ob) {
