@@ -33,9 +33,7 @@ var btemp_loinc_cd = "8310-5";
                     }
                   });
 
-		var allergy = smart.patient;
-		var allergies = allergy.read();
-		var alg = smart.allergy.api.fetchAll ({
+		var alg = smart.patient.api.fetchAll ({
 			type: 'AllergyIntolerance',
 			query: {
 				"clinical-status": 'active'
@@ -44,8 +42,8 @@ var btemp_loinc_cd = "8310-5";
 
         $.when(pt, obv, alg).fail(onError);
 
-        $.when(pt, obv, alg).done(function(patient, obv) {
-			//console.log(alg)
+        $.when(pt, obv, alg).done(function(patient, obv, alg) {
+			console.log(alg)
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -109,6 +107,7 @@ var btemp_loinc_cd = "8310-5";
       ldl: {value: ''},
       hdl: {value: ''},
 	  temp: {value: ''},	//001
+	  allergies: {value:[]}	//002 
     };
   }
 
