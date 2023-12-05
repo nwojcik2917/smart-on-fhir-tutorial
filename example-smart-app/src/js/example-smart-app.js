@@ -14,7 +14,6 @@ var btemp_loinc_cd = "8310-5";
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
-		var allergy = smart.allergyIntolerance;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
@@ -44,8 +43,8 @@ var btemp_loinc_cd = "8310-5";
 
         $.when(pt, obv, alg).fail(onError);
 
-        $.when(pt, obv, alg).done(function(patient, obv, allergies) {
-			console.log(allergies)
+        $.when(pt, obv, alg).done(function(patient, obv, alg) {
+			console.log(alg)
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
