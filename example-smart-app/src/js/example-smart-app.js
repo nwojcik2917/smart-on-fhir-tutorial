@@ -37,14 +37,14 @@ var btemp_loinc_cd = "8310-5";
 		var alg = smart.patient.api.fetchAll({
 			type: 'AllergyIntolerance',
 			query: {
-				clinical-status: {'active'}
+				clinical-status: {['active']}
 			}
 		});
 
-        $.when(pt, obv).fail(onError);
+        $.when(pt, obv, alg).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
-			console.log(alg)
+        $.when(pt, obv, alg).done(function(patient, obv, allergies) {
+			console.log(allergies)
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
