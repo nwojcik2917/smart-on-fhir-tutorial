@@ -15,6 +15,12 @@ var btemp_loinc_cd = "8310-5";
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
+		var alg = smart.patient.api.fetchAll ({
+			type: 'AllergyIntolerance',
+			query: {
+				"clinical-status": 'active'
+			}
+		});
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -33,12 +39,7 @@ var btemp_loinc_cd = "8310-5";
                     }
                   });
 
-		var alg = smart.patient.api.fetchAll ({
-			type: 'AllergyIntolerance',
-			query: {
-				"clinical-status": 'active'
-			}
-		});
+		
 
         $.when(pt, obv, alg).fail(onError);
 
