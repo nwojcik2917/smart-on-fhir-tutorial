@@ -160,7 +160,7 @@ var btemp_loinc_cd = "8310-5";
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
 	$('#temp').html(p.temp);	//001
-	$('#alg_name').html(p.alg);	//002
+	$('#alg_name').html(p.allergies);	//002
   };
 
 })(window);
