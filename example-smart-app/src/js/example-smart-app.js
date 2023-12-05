@@ -82,6 +82,7 @@ var btemp_loinc_cd = "8310-5";
 			
 		  p.temp = getQuantityValueAndUnit(temp[0]);	//001
 		  
+		  p.allergies = getAllergies(alg);	//002
 
           ret.resolve(p);
         });
@@ -107,7 +108,7 @@ var btemp_loinc_cd = "8310-5";
       ldl: {value: ''},
       hdl: {value: ''},
 	  temp: {value: ''},	//001
-	  allergies: {value:[]}	//002 
+	  allergies: {value: ''}	//002 
     };
   }
 
@@ -126,6 +127,13 @@ var btemp_loinc_cd = "8310-5";
     });
 
     return getQuantityValueAndUnit(formattedBPObservations[0]);
+  }
+  
+  // 002
+  function getAllergies(a) {
+	for(let i = 0; i < a.length; i++) {
+		p.allergies += a[i] + "<br>";
+	}
   }
 
   function getQuantityValueAndUnit(ob) {
@@ -152,6 +160,7 @@ var btemp_loinc_cd = "8310-5";
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
 	$('#temp').html(p.temp);	//001
+	$('#alg_name').html(p.alg);	//002
   };
 
 })(window);
