@@ -1,3 +1,6 @@
+var bp_loinc_cd = "85354-9";
+var sys_loinc_cd = "8480-6";
+var dia_loinc_cd = "8462-4";
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -21,7 +24,7 @@
 						//, 'http://loinc.org|8480-6'		// Systolic BP
 						, 'http://loinc.org|2085-9'		// Cholesterol in HDL
 						, 'http://loinc.org|2089-1'		// Cholesterol in LDL
-						, 'http://loinc.org|85354-9'	// BP Systolic and Diastolic, changed from 55284-4
+						, 'http://loinc.org|'+bp_loinc_cd	// BP Systolic and Diastolic, changed from 55284-4
 						]
                       }
                     }
@@ -42,8 +45,8 @@
           }
 
           var height = byCodes('8302-2');
-          var systolicbp = getBloodPressureValue(byCodes('85354-9'),'8480-6');
-          var diastolicbp = getBloodPressureValue(byCodes('85354-9'),'8462-4');
+          var systolicbp = getBloodPressureValue(byCodes(bp_loinc_cd),sys_loinc_cd);
+          var diastolicbp = getBloodPressureValue(byCodes(bp_loinc_cd),dia_loinc_cd);
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
 
