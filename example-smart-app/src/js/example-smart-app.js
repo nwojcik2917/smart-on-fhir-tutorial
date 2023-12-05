@@ -1,6 +1,7 @@
 var bp_loinc_cd = "85354-9";
 var sys_loinc_cd = "8480-6";
 var dia_loinc_cd = "8462-4";
+var btemp_loinc_cd = "8310-5";
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -19,12 +20,13 @@ var dia_loinc_cd = "8462-4";
                     query: {
                       code: {
                         $or: [
-						'http://loinc.org|8302-2'		// body height
-						//, 'http://loinc.org|8462-4'		// Diastolic BP
-						//, 'http://loinc.org|8480-6'		// Systolic BP
-						, 'http://loinc.org|2085-9'		// Cholesterol in HDL
-						, 'http://loinc.org|2089-1'		// Cholesterol in LDL
-						, 'http://loinc.org|'+bp_loinc_cd	// BP Systolic and Diastolic, changed from 55284-4
+						'http://loinc.org|8302-2'				// body height
+						//, 'http://loinc.org|8462-4'			// Diastolic BP
+						//, 'http://loinc.org|8480-6'			// Systolic BP
+						, 'http://loinc.org|2085-9'				// Cholesterol in HDL
+						, 'http://loinc.org|2089-1'				// Cholesterol in LDL
+						, 'http://loinc.org|'+bp_loinc_cd		// BP Systolic and Diastolic, changed from 55284-4
+						, 'http://loinc.org|'+btemp_loinc_cd	// 001 Body Temperature
 						]
                       }
                     }
@@ -49,6 +51,7 @@ var dia_loinc_cd = "8462-4";
           var diastolicbp = getBloodPressureValue(byCodes(bp_loinc_cd),dia_loinc_cd);
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
+		  var temp = byCodes(btemp_loinc_cd);	//001
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
@@ -56,7 +59,7 @@ var dia_loinc_cd = "8462-4";
           p.fname = fname;
           p.lname = lname;
           p.height = getQuantityValueAndUnit(height[0]);
-
+		  
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
           }
@@ -67,6 +70,9 @@ var dia_loinc_cd = "8462-4";
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
+			
+		  p.temp = getQuantityValueAndUnit(temp[0]);	//001
+		  
 
           ret.resolve(p);
         });
@@ -91,6 +97,7 @@ var dia_loinc_cd = "8462-4";
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+	  temp: {value: ''},	//001
     };
   }
 
@@ -134,6 +141,7 @@ var dia_loinc_cd = "8462-4";
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+	$('#temp').html(p.temp);	//001
   };
 
 })(window);
